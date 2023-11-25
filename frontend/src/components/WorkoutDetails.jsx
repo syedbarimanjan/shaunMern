@@ -1,10 +1,11 @@
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext.jsx";
 import { useAuthContext } from "../hooks/useAuthContext.jsx";
+import { ACTIONS } from "../context/WorkoutContext.jsx";
 
 import formatDistanceToNow from "date-fns/formatDistanceToNow"
 
 const WorkoutDetails = ({workout}) => {
-  const {workoutsDispatchFunctions}=useWorkoutsContext();
+  const {dispatch}=useWorkoutsContext();
   const {authState}=useAuthContext();
   const handleClick=async () => {
     if(!authState.user){
@@ -18,7 +19,8 @@ const WorkoutDetails = ({workout}) => {
     })
     const json = await response.json();
     if(response.ok){
-      workoutsDispatchFunctions.deleteWorkout(json);
+      //workoutsDispatchFunctions.deleteWorkout(json);
+      dispatch({type:ACTIONS.DELETE_WORKOUT,payload:json})
     }
   }
   return (

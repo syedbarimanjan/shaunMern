@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext.jsx";
 import { useAuthContext } from '../hooks/useAuthContext.jsx';
+import { ACTIONS } from "../context/WorkoutContext.jsx";
 
 const WorkoutForm = () => {
-    const {workoutsDispatchFunctions}=useWorkoutsContext();
+    const {dispatch}=useWorkoutsContext();
     const {authState}=useAuthContext();
 
     const [title,setTitle]=useState("");
@@ -35,7 +36,8 @@ const WorkoutForm = () => {
         }
         if(response.ok){
             setEmptyFields([]);
-            workoutsDispatchFunctions.updateWorkouts(json);
+            //workoutsDispatchFunctions.updateWorkouts(json);
+            dispatch({type:ACTIONS.CREATE_WORKOUTS,payload:json});
             setTitle("")
             setLoad("")
             setReps("")
