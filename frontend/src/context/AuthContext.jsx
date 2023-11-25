@@ -7,21 +7,21 @@ const ACTIONS = {
     LOGOUT:"LOGOUT"
 }
 
-export const authReducer = (state,action) => {
+export const authReducer = (authState,action) => {
     switch (action.type) {
         case ACTIONS.LOGIN:
             return {user:action.payload}
         case ACTIONS.LOGOUT:
             return {user:null}
         default:
-            return state
+            return authState
     }
 }
 export const AuthContextProvider = ({children}) => {
-    const [state,dispatch]=useReducer(authReducer,{
+    const [authState,dispatch]=useReducer(authReducer,{
         user:null,
     })
-    console.log("auth state = " ,state)
+    console.log("auth authState = " ,authState)
 
     useEffect(() => {
         const user =JSON.parse(localStorage.getItem("user"));
@@ -43,7 +43,7 @@ export const AuthContextProvider = ({children}) => {
     }
     
     return(
-        <AuthContext.Provider value={{state,dispatchFunctions}}>
+        <AuthContext.Provider value={{authState,dispatchFunctions}}>
             {children}
         </AuthContext.Provider>
     )
