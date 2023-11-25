@@ -5,24 +5,24 @@ import { useWorkoutsContext } from "../hooks/useWorkoutsContext.jsx";
 import { useAuthContext } from "../hooks/useAuthContext.jsx"
 
 const Home = () => {
-    const {workoutsState,dispatchFunctions} = useWorkoutsContext();
+    const {workoutsState,workoutsDispatchFunctions} = useWorkoutsContext();
     const {authState} = useAuthContext();
     useEffect(()=>{
         const fetchWorkouts = async ()=>{
-            const response = await fetch("http://localhost:3001/api/workouts",{
+            const response = await fetch("http://localhost:4000/api/workouts",{
                 headers:{
                     "Authorization":`Bearer ${authState.user.token}`
                 }
             });
             const json = await response.json();
             if(response.ok){
-                dispatchFunctions.setWorkouts(json)
+                workoutsDispatchFunctions.setWorkouts(json)
             }
         }
         if(authState.user){
             fetchWorkouts();
         }
-    },[dispatchFunctions.setWorkouts,authState.user])
+    },[workoutsDispatchFunctions.setWorkouts,authState.user])
   return (
    <div className="home">
        <div className="workouts">

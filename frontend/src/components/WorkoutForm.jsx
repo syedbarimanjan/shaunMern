@@ -3,7 +3,7 @@ import { useWorkoutsContext } from "../hooks/useWorkoutsContext.jsx";
 import { useAuthContext } from '../hooks/useAuthContext.jsx';
 
 const WorkoutForm = () => {
-    const {dispatchFunctions}=useWorkoutsContext();
+    const {workoutsDispatchFunctions}=useWorkoutsContext();
     const {authState}=useAuthContext();
 
     const [title,setTitle]=useState("");
@@ -20,7 +20,7 @@ const WorkoutForm = () => {
         }
 
         const workout = {title,load,reps};
-        const response = await fetch("http://localhost:3001/api/workouts",{
+        const response = await fetch("http://localhost:4000/api/workouts",{
             method:"POST",
             body:JSON.stringify(workout),
             headers:{
@@ -35,7 +35,7 @@ const WorkoutForm = () => {
         }
         if(response.ok){
             setEmptyFields([]);
-            dispatchFunctions.updateWorkouts(json);
+            workoutsDispatchFunctions.updateWorkouts(json);
             setTitle("")
             setLoad("")
             setReps("")

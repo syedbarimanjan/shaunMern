@@ -21,14 +21,7 @@ export const AuthContextProvider = ({children}) => {
     const [authState,dispatch]=useReducer(authReducer,{
         user:null,
     })
-    console.log("auth authState = " ,authState)
-
-    useEffect(() => {
-        const user =JSON.parse(localStorage.getItem("user"));
-        if(user){
-            loginUser(user);
-        }
-    },[])
+    console.log("auth = " ,authState)
 
     const loginUser = (json)=>{
         dispatch({type:ACTIONS.LOGIN,payload:json});
@@ -37,13 +30,21 @@ export const AuthContextProvider = ({children}) => {
         dispatch({type:ACTIONS.LOGOUT});
     }
 
-    const dispatchFunctions = {
+    const authDispatchFunctions = {
         loginUser,
         logoutUser,
     }
     
+    useEffect(() => {
+        const user =JSON.parse(localStorage.getItem("user"));
+        if(user){
+            loginUser(user);
+        }
+    },[])
+
+    
     return(
-        <AuthContext.Provider value={{authState,dispatchFunctions}}>
+        <AuthContext.Provider value={{authState,authDispatchFunctions}}>
             {children}
         </AuthContext.Provider>
     )

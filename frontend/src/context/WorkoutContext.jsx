@@ -39,14 +39,14 @@ export const WorkoutsContextProvider = ({children}) => {
     const deleteWorkout = (data)=>{
         dispatch({type:ACTIONS.DELETE_WORKOUT,payload:data})
     }
-    const dispatchFunctions = {
+    const workoutsDispatchFunctions = {
         setWorkouts,
         updateWorkouts,
         deleteWorkout,
     }
     
     return(
-        <WorkoutsContext.Provider value={{workoutsState,dispatchFunctions}}>
+        <WorkoutsContext.Provider value={{workoutsState,workoutsDispatchFunctions}}>
             {children}
         </WorkoutsContext.Provider>
     )

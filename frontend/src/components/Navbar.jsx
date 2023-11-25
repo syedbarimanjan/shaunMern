@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useLogout } from '../hooks/useLogout'
-import { useAuthContext } from '../hooks/useAuthContext';
+import  useLogout  from '../hooks/useLogout.jsx'
+import { useAuthContext } from '../hooks/useAuthContext.jsx';
 
-const navbar = () => {
+const Navbar = () => {
   const {logout}=useLogout();
   const {authState}=useAuthContext();
+
   const handleClick = () => {
     logout();
   }
@@ -34,4 +35,4 @@ const navbar = () => {
   )
 }
 
-export default navbar
+export default Navbar;
